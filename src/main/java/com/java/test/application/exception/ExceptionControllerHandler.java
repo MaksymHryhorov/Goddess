@@ -26,6 +26,32 @@ public class ExceptionControllerHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ControllableException.class)
+    public Map<String, String> handleMethodArgumentNotValidException(final ControllableException exception) {
+        return getValidationErrors(exception);
+    }
+
+    private Map<String, String> getValidationErrors(ControllableException exception) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("code", String.valueOf(exception.getErrorCode()));
+        errorMap.put("message", exception.getMessage());
+        errorMap.put("timestamp", exception.getTimestamp());
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Map<String, String> handleMethodArgumentNotValidException(final IllegalArgumentException exception) {
+        return getValidationErrors(exception, ErrorCode.BAD_REQUEST.getCode());
+    }
+
+    private Map<String, String> getValidationErrors(IllegalArgumentException exception, int errorCode) {
+        Map<String, String> errorMap = new HashMap<>();
+        populateErrorMap(errorMap, errorCode, "message", exception.getMessage());
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public Map<String, String> handleConstraintViolationExceptions(final ConstraintViolationException exception) {
         return getValidationErrors(exception.getConstraintViolations(), ErrorCode.BAD_REQUEST.getCode());

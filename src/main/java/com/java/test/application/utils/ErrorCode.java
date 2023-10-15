@@ -1,5 +1,6 @@
 package com.java.test.application.utils;
 
+import com.java.test.application.exception.ControllableException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -22,7 +23,11 @@ public enum ErrorCode {
             "Sorry, but the page or resource you're looking for cannot be found."),
     METHOD_NOT_ALLOWED(4005,
             HttpStatus.METHOD_NOT_ALLOWED,
-            "Method not allowed.");
+            "Method not allowed."),
+
+    USER_REGISTRATION_EXCEPTION(1000,
+            HttpStatus.BAD_REQUEST,
+            "%s");
 
     private final int code;
     private final HttpStatus httpStatus;
