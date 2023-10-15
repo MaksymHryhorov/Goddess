@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
@@ -19,19 +20,20 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Valid
 @Data
-public class Product {
+public class OneTimeToken {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JoinColumn(name = "user_id")
-    @NotNull(message = "User id must not be null")
     private Long userId;
 
-    @NotNull(message = "Product name must not be null")
-    private String productName;
+    @NotNull
+    private String uuid;
 
-    @NotNull(message = "Product price must not be null")
-    private Double price;
+    @NotNull
+    private Long token;
 
+    private LocalDate expirationDate;
 }

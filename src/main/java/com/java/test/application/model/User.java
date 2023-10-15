@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -25,21 +24,21 @@ import javax.validation.constraints.NotNull;
 @Table(name = "user_table")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "role_id")
-    @NotNull(message = "User role id must not be null")
-    private UserRole role;
+    private Long roleId;
 
-    @NotNull(message = "Username must not be null")
     private String username;
 
     @NotNull(message = "Password must not be null")
     private String password;
 
     @Email
+    @NotNull(message = "Email must not be null")
     private String email;
+
+    private Boolean confirmed;
 
 }
