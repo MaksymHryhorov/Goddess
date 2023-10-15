@@ -2,38 +2,43 @@ package com.java.test.application.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Date;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Builder
 @Valid
-public class Manager {
-
+@Data
+@Table(name = "order_table")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Manager name must not be null")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @OneToMany(mappedBy = "manager")
-    private List<Product> productList;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private int quantity;
+
+    @NotNull(message = "Order date must not be null")
+    private Date orderDate;
 
 }

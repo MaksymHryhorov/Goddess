@@ -11,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -20,20 +22,24 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Valid
 @Data
-public class Product {
+@Table(name = "user_table")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    @NotNull(message = "User id must not be null")
-    private User user;
+    @JoinColumn(name = "role_id")
+    @NotNull(message = "User role id must not be null")
+    private UserRole role;
 
-    @NotNull(message = "Product name must not be null")
-    private String productName;
+    @NotNull(message = "Username must not be null")
+    private String username;
 
-    @NotNull(message = "Product price must not be null")
-    private Double price;
+    @NotNull(message = "Password must not be null")
+    private String password;
+
+    @Email
+    private String email;
 
 }

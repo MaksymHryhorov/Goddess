@@ -1,7 +1,6 @@
 package com.java.test.application.service;
 
 import com.java.test.application.model.Product;
-import com.java.test.application.repository.ManagerRepository;
 import com.java.test.application.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,6 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
-    private final ManagerRepository managerRepository;
 
     public Product addProduct(Product product) {
         return productRepository.save(product);
