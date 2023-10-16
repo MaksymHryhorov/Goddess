@@ -1,6 +1,7 @@
 package com.java.test.application.controller;
 
 import com.java.test.application.dto.RegistrationRequest;
+import com.java.test.application.service.UserService;
 import com.java.test.application.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.net.URI;
 @AllArgsConstructor
 @Controller
 public class RegistrationController {
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @PostMapping("/registration")
     public ResponseEntity<String> registerUser(@RequestBody final RegistrationRequest request) {

@@ -12,7 +12,7 @@ public class JwtUtil {
     private static final String SECRET = "SecretKey";
     private static final long EXPIRATION_TIME = 432_000;
 
-    public static String generateToken(UserDetails userDetails) {
+    public static String generateToken(final UserDetails userDetails) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + EXPIRATION_TIME);
 
@@ -24,7 +24,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public static String extractUsername(String token) {
+    public static String extractUsername(final String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token)
@@ -32,17 +32,17 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    public static boolean isTokenValid(String token, UserDetails userDetails) {
+    public static boolean isTokenValid(final String token, final UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    private static boolean isTokenExpired(String token) {
+    private static boolean isTokenExpired(final String token) {
         final Date expiration = extractExpiration(token);
         return expiration.before(new Date());
     }
 
-    private static Date extractExpiration(String token) {
+    private static Date extractExpiration(final String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token)
