@@ -1,12 +1,17 @@
 package com.java.test.application.config;
 
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@AllArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -14,18 +19,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/api/login/**").permitAll()
                 .antMatchers("/api/products/add").hasRole("MANAGER")
                 .antMatchers("/api/products/**").permitAll() // Allow access to all endpoints under /api/products
                 .antMatchers("/api/registration/**").permitAll() // Allow access to all endpoints under /api/registration
                 .anyRequest().authenticated(); // Require authentication for all other endpoints
 
-        // Disable CSRF for simplicity (you may want to enable it in a production environment)
         http.csrf().disable();
     }
 
+    @Bean
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Configure authentication provider (e.g., in-memory, JDBC, or custom)
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
 

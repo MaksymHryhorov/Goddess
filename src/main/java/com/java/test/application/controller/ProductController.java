@@ -1,7 +1,7 @@
 package com.java.test.application.controller;
 
 import com.java.test.application.model.Product;
-import com.java.test.application.service.ProductService;
+import com.java.test.application.service.impl.ProductServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 public class ProductController {
-    private final ProductService productService;
+    private final ProductServiceImpl productService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)

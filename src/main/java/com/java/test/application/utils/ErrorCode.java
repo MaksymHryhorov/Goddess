@@ -1,6 +1,5 @@
 package com.java.test.application.utils;
 
-import com.java.test.application.exception.ControllableException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
