@@ -1,6 +1,8 @@
-# Goddess
+## Tenchologies
+`Spring 2.7.14` `Java 11` `Docker` `PostgreSql` `JPA` `Lombock`  
+`Postman` `Ubuntu` `junit` `mockito`
 
-Postman Queries
+## Postman Queries
 
 * Product List.  `{{host}}/api/products`
 ![Screenshot from 2023-10-16 20-46-56](https://github.com/MaksymHryhorov/Goddess/assets/84277122/fcc6d4b9-b3e8-4a74-bf18-c2dcd424a39c)
